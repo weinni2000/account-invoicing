@@ -8,7 +8,7 @@ from google.api_core.client_options import ClientOptions  # pylint: disable=W793
 from google.cloud import documentai_v1 as documentai  # pylint: disable=W7936
 from google.oauth2 import service_account  # pylint: disable=W7936
 
-from odoo import _, models
+from odoo import models
 from odoo.tools import float_compare
 from odoo.tools.misc import format_amount
 
@@ -101,7 +101,9 @@ class AccountMoveGoogleDocumentAi(models.AbstractModel):
             )
             != 0
         ):
-            return self.env._("%(field_name)s is not coincident (%(value1)s - %(value2)s)") % {
+            return self.env._(
+                "%(field_name)s is not coincident (%(value1)s - %(value2)s)"
+            ) % {
                 "field_name": invoice._fields[field].string,
                 "value1": format_amount(self.env, value, invoice.currency_id),
                 "value2": format_amount(self.env, invoice[field], invoice.currency_id),
